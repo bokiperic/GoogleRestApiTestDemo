@@ -14,5 +14,6 @@
     <orderEntry type="library" name="commons-codec-1.9" level="project" />
     <orderEntry type="library" name="commons-lang-2.4" level="project" />
     <orderEntry type="library" name="commons-lang3-3.9-sources" level="project" />
+    <orderEntry type="library" name="testng-6.7" level="project" />
   </component>
 </module>
