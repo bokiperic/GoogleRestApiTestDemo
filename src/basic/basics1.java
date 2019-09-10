@@ -2,12 +2,25 @@ package basic;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class basics1 {
+
+    Properties prop = new Properties();
+
+    @BeforeTest
+    public void getData() throws IOException {
+        FileInputStream fis = new FileInputStream("/Users/b.peric/GitHub/GoogleRestApiTestDemo/src/files/env.properties");
+        prop.load(fis);
+    }
 
     @Test
     public void test() {
