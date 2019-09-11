@@ -22,12 +22,12 @@ public class basics3 {
 
     @BeforeTest
     public void getData() throws IOException {
-        FileInputStream fis = new FileInputStream("/Users/b.peric/GitHub/GoogleRestApiTestDemo/src/files/env.properties");
+        FileInputStream fis = new FileInputStream(prop.getProperty("PROPERTIES_FILE_LOCATION"));
         prop.load(fis);
     }
 
     @Test
-    public void AddAndDeletePlace() {
+    public void addAndDeletePlace() {
 
         // Task  1 - Grab the response
         RestAssured.baseURI = prop.getProperty("HOST");
@@ -57,7 +57,7 @@ public class basics3 {
                         "\"place_id\": \"" + placeID + "\"" +
                         "}").
                 when().
-                post("/maps/api/place/delete/json").
+                post(resources.placeDeleteData()).
                 then().assertThat().statusCode(200).
                 and().contentType(ContentType.JSON).
                 and().body("status", equalTo("OK"));

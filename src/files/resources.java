@@ -9,4 +9,9 @@ public class resources {
         return resources;
     }
 
+    public static String placeDeleteData() {
+        String resources = "/maps/api/place/delete";
+        return resources;
+    }
+
 }

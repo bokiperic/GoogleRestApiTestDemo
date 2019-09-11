@@ -1,5 +1,7 @@
 package basic;
 
+import files.payLoad;
+import files.resources;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.testng.annotations.BeforeTest;
@@ -18,31 +20,19 @@ public class basics2 {
 
     @BeforeTest
     public void getData() throws IOException {
-        FileInputStream fis = new FileInputStream("/Users/b.peric/GitHub/GoogleRestApiTestDemo/src/files/env.properties");
+        FileInputStream fis = new FileInputStream(prop.getProperty("PROPERTIES_FILE_LOCATION"));
         prop.load(fis);
     }
 
     @Test
     public void postData() {
-        RestAssured.baseURI = "http://216.10.245.166/maps/api/place/add/xml?key=qaclick123";
+        RestAssured.baseURI = prop.getProperty("HOST");
 
         given().
                 queryParam("key", prop.getProperty("KEY")).
-                body("{" +
-                        "\"location\": {" +
-                            "\"lat\": -33.8669710," +
-                            "\"lng\": 151.1958750" +
-                        "}," +
-                        "\"accuracy\": 50," +
-                        "\"name\": \"Google Shoes!\"," +
-                        "\"phone number\": \"(02) 9374 4000\"," +
-                        "\"address\": \"48 Pirrama Road, Pyrmont, NSW 2009, Australia\"," +
-                        "\"types\": [\"shoe store\"]," +
-                        "\"website\": \"http://www.google.com.au/\"," +
-                        "\"language\": \"en-AU\"" +
-                "}").
+                body(payLoad.getPostData()).
                     when().
-                    post("/maps/api/place/add/json").
+                    post(resources.placePostData()).
                     then().assertThat().statusCode(200).
                     and().contentType(ContentType.JSON);
 //                    and().body("status", equalTo("OK"));
